@@ -3,6 +3,7 @@ defmodule BoardApiWeb.UserController do
 
   alias BoardApi.Accounts
   alias BoardApi.Accounts.User
+  alias Avatar
 
   action_fallback BoardApiWeb.FallbackController
 
@@ -29,6 +30,20 @@ defmodule BoardApiWeb.UserController do
     user = Accounts.get_user!(id)
 
     with {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
+      render(conn, "show.json", user: user)
+    end
+  end
+
+  def update(conn, %{"id" => id, "file" => %Plug.Upload{} = upload}) do
+    user = Accounts.get_user!(id)
+
+    current_user = %{id: id}
+
+    {_ , fileName} =  Avatar.store({upload, current_user})
+
+    filePath = Avatar.url({fileName, current_user}, :thumb)
+
+    with {:ok, %User{} = user} <- Accounts.update_user(user, %{:avatar => filePath}) do
       render(conn, "show.json", user: user)
     end
   end

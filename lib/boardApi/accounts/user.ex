@@ -15,6 +15,8 @@ defmodule BoardApi.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:email, :password_hash, :name, :avatar])
-    |> validate_required([:email, :password_hash, :name, :avatar])
+    |> validate_required([:email, :password_hash, :name])
+    |> validate_format(:email, ~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/) # Check that email is valid
+    |> unique_constraint(:email)
   end
 end

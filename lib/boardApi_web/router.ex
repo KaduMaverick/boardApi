@@ -5,8 +5,12 @@ defmodule BoardApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BoardApiWeb do
+  scope "/api/v1", BoardApiWeb do
     pipe_through :api
+
+    post "/user" , UserController, :create
+
+    put  "/users/:id", UserController, :update
 
     resources "/users", UserController, except: [:new, :edit]
   end

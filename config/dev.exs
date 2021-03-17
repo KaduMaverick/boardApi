@@ -4,7 +4,7 @@ use Mix.Config
 config :boardApi, BoardApi.Repo,
   username: "postgres",
   password: "postgres",
-  database: "boardapi_dev",
+  database: "myapi_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -55,3 +55,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :arc,
+  storage_dir: "./uploads_dev"
