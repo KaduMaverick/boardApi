@@ -7,6 +7,8 @@ defmodule BoardApiWeb.Router do
 
   scope "/api", BoardApiWeb do
     pipe_through :api
+
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
