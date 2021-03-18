@@ -12,7 +12,12 @@ defmodule BoardApiWeb.Router do
 
     put  "/users/:id", UserController, :update
 
+    get  "/boards", BoardController, :index
+
+    post  "/boards", BoardController, :create
+
     resources "/users", UserController, except: [:new, :edit]
+    resources "/boards", BoardController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
