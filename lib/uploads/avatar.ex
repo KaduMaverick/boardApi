@@ -1,5 +1,6 @@
 defmodule Avatar do
   use Arc.Definition
+  use Arc.Ecto.Definition
   def __storage, do: Arc.Storage.Local # Add this
 
   @versions [:original, :thumb]

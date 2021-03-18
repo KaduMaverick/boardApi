@@ -37,13 +37,14 @@ defmodule BoardApiWeb.UserController do
   def update(conn, %{"id" => id, "file" => %Plug.Upload{} = upload}) do
     user = Accounts.get_user!(id)
 
-    current_user = %{id: id}
+    # current_user = %{id: id}
 
-    {_ , fileName} =  Avatar.store({upload, current_user})
+    # {_ , fileName} =  Avatar.store({upload, current_user})
 
-    filePath = Avatar.url({fileName, current_user}, :thumb)
+    # filePath = Avatar.url({fileName, current_user}, :thumb)
 
-    with {:ok, %User{} = user} <- Accounts.update_user(user, %{:avatar => filePath}) do
+    with {:ok, %User{} = user} <- Accounts.update_user(user, %{:avatar => upload}) do
+      user = Map.put(user, :avatar, Avatar.urls({user.avatar, user}))
       render(conn, "show.json", user: user)
     end
   end

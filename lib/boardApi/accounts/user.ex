@@ -1,9 +1,10 @@
 defmodule BoardApi.Accounts.User do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
 
   schema "users" do
-    field :avatar, :string
+    field :avatar,  Avatar.Type
     field :email, :string
     field :name, :string
     field :password_hash, :string
@@ -14,7 +15,8 @@ defmodule BoardApi.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password_hash, :name, :avatar])
+    |> cast(attrs, [:email, :password_hash, :name,])
+    |> cast_attachments(attrs, [:avatar])
     |> validate_required([:email, :password_hash, :name])
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/) # Check that email is valid
     |> unique_constraint(:email)
