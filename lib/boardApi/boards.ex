@@ -7,6 +7,7 @@ defmodule BoardApi.Boards do
   alias BoardApi.Repo
 
   alias BoardApi.Boards.Board
+  alias BoardApi.Accounts.User
 
   @doc """
   Returns the list of boards.
@@ -37,6 +38,7 @@ defmodule BoardApi.Boards do
   """
   def get_board!(id), do: Repo.get!(Board, id)
 
+  def get_board_with_users!(id), do: Board |> preload(:users) |> Repo.get!(id)
   @doc """
   Creates a board.
 
@@ -50,8 +52,12 @@ defmodule BoardApi.Boards do
 
   """
   def create_board(attrs \\ %{}) do
+    user =  Repo.get!(User, "1")
+    IO.inspect "user"
+    IO.inspect user
     %Board{}
     |> Board.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:users, [user])
     |> Repo.insert()
   end
 

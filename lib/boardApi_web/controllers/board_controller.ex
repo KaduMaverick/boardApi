@@ -21,7 +21,7 @@ defmodule BoardApiWeb.BoardController do
   end
 
   def show(conn, %{"id" => id}) do
-    board = Boards.get_board!(id)
+    board = Boards.get_board_with_users!(id)
     render(conn, "show.json", board: board)
   end
 

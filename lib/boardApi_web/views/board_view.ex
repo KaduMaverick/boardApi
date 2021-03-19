@@ -12,6 +12,8 @@ defmodule BoardApiWeb.BoardView do
 
   def render("board.json", %{board: board}) do
     %{id: board.id,
-      name: board.name}
+      name: board.name,
+      users: board.users
+    }
   end
 end

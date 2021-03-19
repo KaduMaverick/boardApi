@@ -10,9 +10,12 @@ defmodule BoardApiWeb.Router do
 
     post "/user" , UserController, :create
 
+    get  "/users", UserController, :index
+
     put  "/users/:id", UserController, :update
 
     get  "/boards", BoardController, :index
+    get  "/boards/:id", BoardController, :show
 
     post  "/boards", BoardController, :create
 

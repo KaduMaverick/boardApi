@@ -3,6 +3,7 @@ defmodule BoardApi.Accounts.User do
   use Arc.Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:name, :email]}
   schema "users" do
     field :avatar,  Avatar.Type
     field :email, :string
